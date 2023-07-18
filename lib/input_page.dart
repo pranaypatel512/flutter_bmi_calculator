@@ -10,6 +10,8 @@ const bottomContainerColor = Color(0xFFEB1555);
 const activeCardColor = Color(0xFF1D1E33);
 const inActiveCardColor = Color(0xFF111328);
 
+enum Gender { male, female }
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
@@ -21,23 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Color maleCardColor = inActiveCardColor;
   Color femaleCardColor = inActiveCardColor;
 
-  void toggleColor(int geneder) {
-    if (geneder == 1) {
-      if (maleCardColor == activeCardColor) {
-        maleCardColor = inActiveCardColor;
-      } else {
-        maleCardColor = activeCardColor;
-        femaleCardColor = inActiveCardColor;
-      }
-    } else if (geneder == 2) {
-      if (femaleCardColor == activeCardColor) {
-        femaleCardColor = inActiveCardColor;
-      } else {
-        femaleCardColor = activeCardColor;
-        maleCardColor = inActiveCardColor;
-      }
-    }
-  }
+  Gender? selectedGender;
 
   @override
   Widget build(BuildContext context) {
@@ -54,11 +40,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
-                          toggleColor(1);
+                          selectedGender = Gender.male;
                         });
                       },
                       child: ReusableCard(
-                        color: maleCardColor,
+                        color: selectedGender == Gender.male
+                            ? activeCardColor
+                            : inActiveCardColor,
                         childWidget: const IconsContent(
                           iconData: FontAwesomeIcons.mars,
                           labelText: "MALE",
@@ -70,11 +58,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
-                          toggleColor(2);
+                          selectedGender = Gender.female;
                         });
                       },
                       child: ReusableCard(
-                        color: femaleCardColor,
+                        color: selectedGender == Gender.female
+                            ? activeCardColor
+                            : inActiveCardColor,
                         childWidget: const IconsContent(
                           iconData: FontAwesomeIcons.venus,
                           labelText: "FEMALE",
