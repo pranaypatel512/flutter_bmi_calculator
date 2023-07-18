@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+const bottomContainerHeight = 80.0;
+const cardColor = Color(0xFF1D1E33);
+const bottomContainerColor = Color(0xFFEB1555);
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
@@ -16,57 +20,66 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: Column(
           children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                      margin: const EdgeInsets.all(15.0),
-                      decoration: BoxDecoration(
-                          color: Color(0xFF1D1E33),
-                          borderRadius: BorderRadius.circular(10.0))),
-                ),
-                Container(
-                  width: 20,
-                  height: double.infinity,
-                  color: Color(0xFF0A0E21),
-                ),
-                Expanded(
-                  child: Container(
-                      margin: const EdgeInsets.all(15.0),
-                      decoration: BoxDecoration(
-                          color: Color(0xFF1D1E33),
-                          borderRadius: BorderRadius.circular(10.0))),
-                ),
-              ],
+            Expanded(
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: ReusableCard(
+                      color: cardColor,
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: ReusableCard(
+                      color: cardColor,
+                    ),
+                  ),
+                ],
+              ),
             ),
             Expanded(
-              flex: 1,
-              child: Container(
-                  margin: const EdgeInsets.all(15.0),
-                  decoration: BoxDecoration(
-                      color: Color(0xFF1D1E33),
-                      borderRadius: BorderRadius.circular(10.0))),
+              child: ReusableCard(
+                color: cardColor,
+              ),
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                      margin: const EdgeInsets.all(15.0),
-                      decoration: BoxDecoration(
-                          color: Color(0xFF1D1E33),
-                          borderRadius: BorderRadius.circular(10.0))),
-                ),
-                Expanded(
-                  child: Container(
-                      margin: const EdgeInsets.all(15.0),
-                      decoration: BoxDecoration(
-                          color: Color(0xFF1D1E33),
-                          borderRadius: BorderRadius.circular(10.0))),
-                ),
-              ],
+            Expanded(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: ReusableCard(
+                      color: cardColor,
+                    ),
+                  ),
+                  Expanded(
+                    child: ReusableCard(
+                      color: cardColor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              color: bottomContainerColor,
+              width: double.infinity,
+              height: bottomContainerHeight,
+              margin: EdgeInsets.only(top: 10.0),
             )
           ],
         ) // This trailing comma makes auto-formatting nicer for build methods.
         );
+  }
+}
+
+class ReusableCard extends StatelessWidget {
+  const ReusableCard({super.key, required this.color});
+
+  final Color color;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: const EdgeInsets.all(15.0),
+        decoration: BoxDecoration(
+            color: color, borderRadius: BorderRadius.circular(10.0)));
   }
 }
