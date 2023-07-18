@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bmi_calculator/icons_content.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'reusable_card.dart';
 
 const bottomContainerHeight = 80.0;
 const cardColor = Color(0xFF1D1E33);
 const bottomContainerColor = Color(0xFFEB1555);
+const activeCardColor = Color(0xFF1D1E33);
+const inActiveCardColor = Color(0xFF111328);
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -12,6 +18,27 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Color maleCardColor = inActiveCardColor;
+  Color femaleCardColor = inActiveCardColor;
+
+  void toggleColor(int geneder) {
+    if (geneder == 1) {
+      if (maleCardColor == activeCardColor) {
+        maleCardColor = inActiveCardColor;
+      } else {
+        maleCardColor = activeCardColor;
+        femaleCardColor = inActiveCardColor;
+      }
+    } else if (geneder == 2) {
+      if (femaleCardColor == activeCardColor) {
+        femaleCardColor = inActiveCardColor;
+      } else {
+        femaleCardColor = activeCardColor;
+        maleCardColor = inActiveCardColor;
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,26 +51,46 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Row(
                 children: [
                   Expanded(
-                    flex: 1,
-                    child: ReusableCard(
-                      color: cardColor,
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          toggleColor(1);
+                        });
+                      },
+                      child: ReusableCard(
+                        color: maleCardColor,
+                        childWidget: const IconsContent(
+                          iconData: FontAwesomeIcons.mars,
+                          labelText: "MALE",
+                        ),
+                      ),
                     ),
                   ),
                   Expanded(
-                    flex: 1,
-                    child: ReusableCard(
-                      color: cardColor,
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          toggleColor(2);
+                        });
+                      },
+                      child: ReusableCard(
+                        color: femaleCardColor,
+                        childWidget: const IconsContent(
+                          iconData: FontAwesomeIcons.venus,
+                          labelText: "FEMALE",
+                        ),
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-            Expanded(
+            const Expanded(
               child: ReusableCard(
                 color: cardColor,
               ),
             ),
-            Expanded(
+            const Expanded(
               child: Row(
                 children: [
                   Expanded(
@@ -63,23 +110,10 @@ class _MyHomePageState extends State<MyHomePage> {
               color: bottomContainerColor,
               width: double.infinity,
               height: bottomContainerHeight,
-              margin: EdgeInsets.only(top: 10.0),
+              margin: const EdgeInsets.only(top: 10.0),
             )
           ],
         ) // This trailing comma makes auto-formatting nicer for build methods.
         );
-  }
-}
-
-class ReusableCard extends StatelessWidget {
-  const ReusableCard({super.key, required this.color});
-
-  final Color color;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.all(15.0),
-        decoration: BoxDecoration(
-            color: color, borderRadius: BorderRadius.circular(10.0)));
   }
 }
