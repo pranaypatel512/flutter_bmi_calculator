@@ -37,38 +37,34 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Row(
                 children: [
                   Expanded(
-                    child: GestureDetector(
-                      onTap: () {
+                    child: ReusableCard(
+                      onPress: () {
                         setState(() {
                           selectedGender = Gender.male;
                         });
                       },
-                      child: ReusableCard(
-                        color: selectedGender == Gender.male
-                            ? activeCardColor
-                            : inActiveCardColor,
-                        childWidget: const IconsContent(
-                          iconData: FontAwesomeIcons.mars,
-                          labelText: "MALE",
-                        ),
+                      color: selectedGender == Gender.male
+                          ? activeCardColor
+                          : inActiveCardColor,
+                      childWidget: const IconsContent(
+                        iconData: FontAwesomeIcons.mars,
+                        labelText: "MALE",
                       ),
                     ),
                   ),
                   Expanded(
-                    child: GestureDetector(
-                      onTap: () {
+                    child: ReusableCard(
+                      onPress: () {
                         setState(() {
                           selectedGender = Gender.female;
                         });
                       },
-                      child: ReusableCard(
-                        color: selectedGender == Gender.female
-                            ? activeCardColor
-                            : inActiveCardColor,
-                        childWidget: const IconsContent(
-                          iconData: FontAwesomeIcons.venus,
-                          labelText: "FEMALE",
-                        ),
+                      color: selectedGender == Gender.female
+                          ? activeCardColor
+                          : inActiveCardColor,
+                      childWidget: const IconsContent(
+                        iconData: FontAwesomeIcons.venus,
+                        labelText: "FEMALE",
                       ),
                     ),
                   ),
