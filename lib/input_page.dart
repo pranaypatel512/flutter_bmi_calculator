@@ -106,7 +106,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         value: height.toDouble(),
                         min: 120.0,
                         max: 220.0,
-                        inactiveColor: ,
                         onChanged: (value) {
                           setState(() {
                             height = value.toInt();
