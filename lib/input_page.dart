@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bmi_calculator/constance.dart';
 import 'package:flutter_bmi_calculator/icons_content.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'reusable_card.dart';
-
-const bottomContainerHeight = 80.0;
-const cardColor = Color(0xFF1D1E33);
-const bottomContainerColor = Color(0xFFEB1555);
-const activeCardColor = Color(0xFF1D1E33);
-const inActiveCardColor = Color(0xFF111328);
 
 enum Gender { male, female }
 
@@ -20,10 +15,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Color maleCardColor = inActiveCardColor;
-  Color femaleCardColor = inActiveCardColor;
+  Color maleCardColor = kInActiveCardColor;
+  Color femaleCardColor = kInActiveCardColor;
 
   Gender? selectedGender;
+  int height = 180;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
           title: const Text("BMI CALCULATOR"),
         ),
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
               child: Row(
@@ -44,8 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         });
                       },
                       color: selectedGender == Gender.male
-                          ? activeCardColor
-                          : inActiveCardColor,
+                          ? kActiveCardColor
+                          : kInActiveCardColor,
                       childWidget: const IconsContent(
                         iconData: FontAwesomeIcons.mars,
                         labelText: "MALE",
@@ -60,8 +57,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         });
                       },
                       color: selectedGender == Gender.female
-                          ? activeCardColor
-                          : inActiveCardColor,
+                          ? kActiveCardColor
+                          : kInActiveCardColor,
                       childWidget: const IconsContent(
                         iconData: FontAwesomeIcons.venus,
                         labelText: "FEMALE",
@@ -71,9 +68,45 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
-            const Expanded(
+            Expanded(
               child: ReusableCard(
-                color: cardColor,
+                childWidget: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'HEIGHT',
+                      style: kLabelTextStyle,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: [
+                        Text(
+                          height.toString(),
+                          style: kLabelLargeTextStyle,
+                        ),
+                        Text(
+                          'cm',
+                          style: kLabelTextStyle,
+                        )
+                      ],
+                    ),
+                    Slider(
+                      value: height.toDouble(),
+                      min: 120.0,
+                      max: 220.0,
+                      activeColor: kBottomContainerColor,
+                      inactiveColor: Color(0XFF8D8E98),
+                      onChanged: (value) {
+                        setState(() {
+                          height = value.toInt();
+                        });
+                      },
+                    )
+                  ],
+                ),
+                color: kCardColor,
               ),
             ),
             const Expanded(
@@ -81,21 +114,21 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   Expanded(
                     child: ReusableCard(
-                      color: cardColor,
+                      color: kCardColor,
                     ),
                   ),
                   Expanded(
                     child: ReusableCard(
-                      color: cardColor,
+                      color: kCardColor,
                     ),
                   ),
                 ],
               ),
             ),
             Container(
-              color: bottomContainerColor,
+              color: kBottomContainerColor,
               width: double.infinity,
-              height: bottomContainerHeight,
+              height: kBottomContainerHeight,
               margin: const EdgeInsets.only(top: 10.0),
             )
           ],
