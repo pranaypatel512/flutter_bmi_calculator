@@ -92,17 +92,27 @@ class _MyHomePageState extends State<MyHomePage> {
                         )
                       ],
                     ),
-                    Slider(
-                      value: height.toDouble(),
-                      min: 120.0,
-                      max: 220.0,
-                      activeColor: kBottomContainerColor,
-                      inactiveColor: Color(0XFF8D8E98),
-                      onChanged: (value) {
-                        setState(() {
-                          height = value.toInt();
-                        });
-                      },
+                    SliderTheme(
+                      data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: Colors.white,
+                          overlayColor: Color(0x29EB1555),
+                          thumbColor: Color(0xFFEB1555),
+                          inactiveTrackColor: Color(0XFF8D8E98),
+                          thumbShape:
+                              RoundSliderThumbShape(enabledThumbRadius: 15),
+                          overlayShape:
+                              RoundSliderOverlayShape(overlayRadius: 30)),
+                      child: Slider(
+                        value: height.toDouble(),
+                        min: 120.0,
+                        max: 220.0,
+                        inactiveColor: ,
+                        onChanged: (value) {
+                          setState(() {
+                            height = value.toInt();
+                          });
+                        },
+                      ),
                     )
                   ],
                 ),
