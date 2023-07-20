@@ -3,10 +3,10 @@ import 'package:flutter_bmi_calculator/componants/bottom_button.dart';
 import 'package:flutter_bmi_calculator/componants/reusable_card.dart';
 import 'package:flutter_bmi_calculator/constance.dart';
 import 'package:flutter_bmi_calculator/componants/icons_content.dart';
+import 'package:flutter_bmi_calculator/screens/calculate_bmi.dart';
 import 'package:flutter_bmi_calculator/screens/result_page.dart';
 import 'package:flutter_bmi_calculator/componants/rounded_icon_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 
 enum Gender { male, female }
 
@@ -224,8 +224,13 @@ class _MyHomePageState extends State<MyHomePage> {
             BottomButtonWidget(
               label: 'CALCULATE',
               onClick: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: ((context) => ResultPage())));
+                CalculateBMI calculateBMI = CalculateBMI(height, weight);
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: ((context) => ResultPage(
+                          bmiResult: calculateBMI.calculateBMI(),
+                          bmiResultText: calculateBMI.getResult(),
+                          interpretation: calculateBMI.getInterPretation(),
+                        ))));
               },
             )
           ],
