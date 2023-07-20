@@ -20,6 +20,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Gender? selectedGender;
   int height = 180;
+  int weight = 1;
+  int age = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -118,17 +120,99 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: kCardColor,
               ),
             ),
-            const Expanded(
+            Expanded(
               child: Row(
                 children: [
                   Expanded(
                     child: ReusableCard(
                       color: kCardColor,
+                      childWidget: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'WEIGHT',
+                            style: kLabelTextStyle,
+                          ),
+                          Text(
+                            weight.toString(),
+                            style: kLabelLargeTextStyle,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              RoundedIconButton(
+                                fillColor: Color(0xFF4C4F5E),
+                                child: Icon(FontAwesomeIcons.minus),
+                                onClick: () {
+                                  setState(() {
+                                    if (weight > 1) {
+                                      weight -= 1;
+                                    }
+                                  });
+                                },
+                              ),
+                              SizedBox(width: 10.0),
+                              RoundedIconButton(
+                                fillColor: Color(0xFF4C4F5E),
+                                child: Icon(FontAwesomeIcons.plus),
+                                onClick: () {
+                                  setState(() {
+                                    if (weight < 500) {
+                                      weight += 1;
+                                    }
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Expanded(
                     child: ReusableCard(
                       color: kCardColor,
+                      childWidget: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'AGE',
+                            style: kLabelTextStyle,
+                          ),
+                          Text(
+                            age.toString(),
+                            style: kLabelLargeTextStyle,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              RoundedIconButton(
+                                fillColor: Color(0xFF4C4F5E),
+                                child: Icon(FontAwesomeIcons.minus),
+                                onClick: () {
+                                  setState(() {
+                                    if (age > 1) {
+                                      age -= 1;
+                                    }
+                                  });
+                                },
+                              ),
+                              SizedBox(width: 10.0),
+                              RoundedIconButton(
+                                fillColor: Color(0xFF4C4F5E),
+                                child: Icon(FontAwesomeIcons.plus),
+                                onClick: () {
+                                  setState(() {
+                                    if (age < 100) {
+                                      age += 1;
+                                    }
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -143,5 +227,27 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ) // This trailing comma makes auto-formatting nicer for build methods.
         );
+  }
+}
+
+class RoundedIconButton extends StatelessWidget {
+  const RoundedIconButton(
+      {super.key,
+      required this.onClick,
+      required this.fillColor,
+      required this.child});
+
+  final VoidCallback onClick;
+  final Color fillColor;
+  final Widget child;
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      child: child,
+      onPressed: onClick,
+      shape: CircleBorder(),
+      fillColor: fillColor,
+      constraints: BoxConstraints.tightFor(width: 58.0, height: 58.0),
+    );
   }
 }
